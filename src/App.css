@@ -1,0 +1,30 @@
+.menu {
+  background: #d1d1d1;
+  width: 800px;
+  height: 100px;
+}
+
+.p1 {
+  float: left;
+  /* height: 50px;
+  width: 50px; */
+  /* padding: 20px; */
+}
+
+#p1>p {
+  /* background-color: #555; */
+  /* border-radius: 50%; */
+}
+
+.p2 {
+  float: right;
+
+  /* height: 50px;
+  width: 50px; */
+  /* padding: 30px */
+}
+
+#p2>p {
+  /* background-color: #555; */
+  /* border-radius: 50%; */
+}
