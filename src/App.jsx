@@ -3,6 +3,7 @@ import Canvas from './Canvas';
 import './App.css'
 import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom'
+import PlayersControls from './PlayersControls';
 
 function App() {
   const [isPortalVisible, setIsPortalVisible] = useState(false);
@@ -23,7 +24,7 @@ function App() {
   };
 
   const pauseGame = () => {
-    console.log('PAUSE!!!')
+    // console.log('PAUSE!!!')
     const currentCanvas = document.getElementById('canvas');
     if (!currentCanvas) {
       console.log('no canvas');
@@ -35,7 +36,7 @@ function App() {
   };
 
   const resumeGame = () => {
-    console.log('RESUME!!!')
+    // console.log('RESUME!!!')
     const currentCanvas = document.getElementById('canvas');
     if (!currentCanvas) {
       console.log('no canvas');
@@ -59,7 +60,8 @@ function App() {
 
           isPortalVisible ? resumeGame() : pauseGame();
         }}>avatar</button>
-        <Canvas width="800" height="500" />
+        <Canvas />
+        <PlayersControls />
       </div>
       {renderPortal()}
     </>
