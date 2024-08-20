@@ -12,6 +12,11 @@ function App() {
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
   const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
 
+  // const gameOver = {
+  //   winner: '',
+  //   isPaused: false,
+  // }
+
   const renderPortal = () => {
     const portalContainer = document.getElementById('portal');
     if (!(portalContainer && isPortalVisible)) {
@@ -29,14 +34,14 @@ function App() {
   const pauseGame = () => {
     // console.log('PAUSE!!!')
     const currentCanvas = document.getElementById('canvas');
-    if (!currentCanvas) {
+    const currentContext = currentCanvas.getContext('2d');
+    if (damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3) {
+      currentContext.state = { ...currentContext.state, isPaused: true };
       // console.log('no canvas');
     }
-
-    const currentContext = currentCanvas.getContext('2d');
-    currentContext.state = { ...currentContext.state, isPaused: true };
-    // console.log(currentContext.state);
   };
+
+  // console.log(currentContext.state);
 
   const resumeGame = () => {
     // console.log('RESUME!!!')
@@ -49,6 +54,17 @@ function App() {
     currentContext.state = { ...currentContext.state, isPaused: false };
     // console.log(currentContext.state);
   };
+
+  const isPaused = damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3
+  // if (damageCounterPlayer1 >= 3) {
+  //   gameOver.winner = 'Player 1'
+  //   gameOver.isPaused = true
+  // } else if (damageCounterPlayer2 >= 3) {
+  //   gameOver.winner = 'Player 2'
+  //   gameOver.isPaused = true
+  // }
+  // console.log(gameOver)
+
 
   return (
     <>
@@ -67,6 +83,8 @@ function App() {
         <Canvas
           setDamageCounterPlayer1={setDamageCounterPlayer1}
           setDamageCounterPlayer2={setDamageCounterPlayer2}
+          // gameOver={gameOver}
+          isPaused={isPaused}
         />
         <PlayersControls />
       </div>

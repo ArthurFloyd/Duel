@@ -30,7 +30,7 @@ const DEFAULT_PLAYER = {
 };
 
 // console.log()
-const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
+const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) => {
   const canvasRef = useRef(null);
 
   const changePlayer1Color = (color) => {
@@ -55,17 +55,15 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
         ...DEFAULT_PLAYER,
         id: 1,
         x: PLAYER_SIDE_GAP,
-        color: '#0095DD',
+        color: '#434343',
         magic: { ...DEFAULT_SPELL },
-        score: 0,
       },
       player2: {
         ...DEFAULT_PLAYER,
         id: 2,
         x: canvas.width - PLAYER_SIDE_GAP,
-        color: '#f5c00f',
+        color: '#434343',
         magic: { ...DEFAULT_SPELL },
-        score: 0,
       },
     };
 
@@ -84,7 +82,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
 
     // field
     const drawGameField = () => {
-      context.fillStyle = '#e4cce6';
+      context.fillStyle = '#f2f2eb';
       context.fillRect(0, 0, CANVAS_SIZES.width, CANVAS_SIZES.height);
     };
 
@@ -99,7 +97,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
     const drawSpell = ({ x, y }) => {
       context.beginPath();
       context.arc(x, y, magicradius, 0, Math.PI * 2);
-      context.fillStyle = "#db7b82";
+      context.fillStyle = "#8ecae6";
       context.fill();
       context.closePath();
     };
@@ -216,7 +214,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
           );
 
           if (isPlayerHitBySpell) {
-            console.log('1', oponentKey)
             // context.state.players[oponentKey].score + 1;
             oponentKey === 'player1' ? 
             setDamageCounterPlayer1((prevCount) => prevCount + 1) : 
@@ -227,24 +224,25 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
             acc.push({ ...activeSpell, x: newX });
             drawSpell(activeSpell);
           }
-
+          
           return acc;
         }, []);
       };
-
+      
       moveSpells(player1);
       moveSpells(player2);
+      // console.log('1', isPaused)
 
       // TODO: possibility of a tie?
       // TODO: convert to a switch
       // winner
-      // if (countP1 > 2) {
-      //   alert(`Winner Player 1`)
+      if (isPaused) {
+        alert(`Congratulations!`)
       // } else if (countP2 > 2) {
       //   alert(`Winner Player 2`)
-      // } else {
+      } else {
         requestAnimationFrame(draw);
-      // }
+      }
     }
 
     canvas.addEventListener('mousemove', (event) => {
