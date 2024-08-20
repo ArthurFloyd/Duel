@@ -9,6 +9,9 @@ function App() {
   const [isPortalVisible, setIsPortalVisible] = useState(false);
   const [portalPosition, setPortalPosition] = useState({ top: 0, left: 0 });
 
+  const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
+  const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
+
   const renderPortal = () => {
     const portalContainer = document.getElementById('portal');
     if (!(portalContainer && isPortalVisible)) {
@@ -22,12 +25,12 @@ function App() {
       portalContainer,
     );
   };
-
+  // console.log(damageCounter)
   const pauseGame = () => {
     // console.log('PAUSE!!!')
     const currentCanvas = document.getElementById('canvas');
     if (!currentCanvas) {
-      console.log('no canvas');
+      // console.log('no canvas');
     }
 
     const currentContext = currentCanvas.getContext('2d');
@@ -39,7 +42,7 @@ function App() {
     // console.log('RESUME!!!')
     const currentCanvas = document.getElementById('canvas');
     if (!currentCanvas) {
-      console.log('no canvas');
+      // console.log('no canvas');
     }
 
     const currentContext = currentCanvas.getContext('2d');
@@ -51,6 +54,7 @@ function App() {
     <>
       <div>
         {/* <ChangeColor /> */}
+        <div>{`${damageCounterPlayer1}/${damageCounterPlayer2}`}</div>
         <button onClick={(event) => {
           // console.log(event.target.getBoundingClientRect())
           setPortalPosition({ top: event.target.getBoundingClientRect().top + 25, left: event.target.getBoundingClientRect().left + 50 });
@@ -60,7 +64,10 @@ function App() {
 
           isPortalVisible ? resumeGame() : pauseGame();
         }}>avatar</button>
-        <Canvas />
+        <Canvas
+          setDamageCounterPlayer1={setDamageCounterPlayer1}
+          setDamageCounterPlayer2={setDamageCounterPlayer2}
+        />
         <PlayersControls />
       </div>
       {renderPortal()}

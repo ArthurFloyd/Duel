@@ -17,7 +17,7 @@ const PlayersControls = () => {
       playerId === 1 ? setMovingSpeedModifier1(event.target.value) : setMovingSpeedModifier2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
       if (!currentCanvas) {
-        console.log('no canvas');
+        // console.log('no canvas');
       }
 
       const currentContext = currentCanvas.getContext('2d');
@@ -36,11 +36,11 @@ const PlayersControls = () => {
     };
 
     const handleCastingRateChange = (event) => {
-      console.log(event.target.value);
+      // console.log(event.target.value);
       playerId === 1 ? setCastingRateModifier1(event.target.value) : setCastingRateModifier2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
       if (!currentCanvas) {
-        console.log('no canvas');
+        // console.log('no canvas');
       }
 
       const currentContext = currentCanvas.getContext('2d');
