@@ -1,4 +1,12 @@
 .players-controls-container {
   display: flex;
   justify-content: space-between;
+
+}
+
+.moving-speed {
+  color: #000;
+  background: #000;
+
+
 }

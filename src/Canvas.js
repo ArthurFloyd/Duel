@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react"
-import ChangeColor from "./menuChangeColor";
+// import ChangeColor from "./menuChangeColor";
 // import changeColor from './menuChangeColor';
 
-const CANVAS_SIZES = { width: 800, height: 500 };
+const CANVAS_SIZES = { width: 800, height: 500, display: "block", marginLeft: "auto",
+  margin: "100%" };
 
 const PLAYER_SIDE_GAP = 30;
 
@@ -30,7 +31,7 @@ const DEFAULT_PLAYER = {
 };
 
 // console.log()
-const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) => {
+const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused, colorSpell}) => {
   const canvasRef = useRef(null);
 
   const changePlayer1Color = (color) => {
@@ -57,6 +58,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
         x: PLAYER_SIDE_GAP,
         color: '#434343',
         magic: { ...DEFAULT_SPELL },
+        isWinner: false
       },
       player2: {
         ...DEFAULT_PLAYER,
@@ -64,6 +66,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
         x: canvas.width - PLAYER_SIDE_GAP,
         color: '#434343',
         magic: { ...DEFAULT_SPELL },
+        isWinner: false
       },
     };
 
@@ -97,10 +100,11 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
     const drawSpell = ({ x, y }) => {
       context.beginPath();
       context.arc(x, y, magicradius, 0, Math.PI * 2);
-      context.fillStyle = "#8ecae6";
+      context.fillStyle = colorSpell;
       context.fill();
       context.closePath();
     };
+    console.log(colorSpell)
 
     // let countP1 = 0
     // let countP2 = 0
@@ -182,8 +186,8 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
       };
 
       // change color
-      const handleClick = (event) => {
-        context.state = { test: 'abcd' };
+      // const handleClick = (event) => {
+      //   context.state = { test: 'abcd' };
         // const rect = ref.current.getBoundingClientRect();
         // if (mouseX === players.player1.x || mouseY === players.player2.y ) {
         // }
@@ -194,7 +198,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
         // if (colorX >= 50 && colorX <= 150 && colorY >= 50 && colorY <= 150) {
         //   // Изменяем цвет фигуры на случайный цвет
         // }
-      };
+      // };
 
       drawGameField();
       drawPlayer(player1);
@@ -218,6 +222,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
             oponentKey === 'player1' ? 
             setDamageCounterPlayer1((prevCount) => prevCount + 1) : 
             setDamageCounterPlayer2((prevCount) => prevCount + 1)
+            console.log('1', context.state)
             // setDamageCounterPlayer1((prevCount) => prevCount + 1);
           } else {
             const newX = player.id === 1 ? activeSpell.x + SPELL_MOVING_SPEED : activeSpell.x - SPELL_MOVING_SPEED;
@@ -231,36 +236,36 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
       
       moveSpells(player1);
       moveSpells(player2);
-      // console.log('1', isPaused)
 
       // TODO: possibility of a tie?
       // TODO: convert to a switch
       // winner
-      if (isPaused) {
-        alert(`Congratulations!`)
+      // if (isPaused) {
+      //   alert(`Congratulations!`)
       // } else if (countP2 > 2) {
       //   alert(`Winner Player 2`)
-      } else {
+      // } else {
         requestAnimationFrame(draw);
-      }
+      // }
     }
 
     canvas.addEventListener('mousemove', (event) => {
       mouseX = event.offsetX;
       mouseY = event.offsetY;
     });
+  
 
     draw()
   }, []);
 
   return (
     <div>
-      <div>
+      {/* <div>
         <button className="p1" onClick={() => changePlayer1Color('#FFFFFF')}>player 1</button>
       </div>
       <div>
         <button className="p2" onClick={() => <ChangeColor />}>player 2</button>
-      </div>
+      </div> */}
         {/* <changeColor /> */}
       <canvas 
         id='canvas'
