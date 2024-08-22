@@ -15,6 +15,7 @@ const DEFAULT_SPELL = {
   castingRate: DEFAULT_SPELL_CASTING_RATE,
   lastCastedAt: Date.now(),
   activeSpells: [],
+  color: '#ec4176',
 };
 
 const DEFAULT_PLAYER = {
@@ -31,7 +32,7 @@ const DEFAULT_PLAYER = {
 };
 
 // console.log()
-const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused, colorSpell}) => {
+const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) => {
   const canvasRef = useRef(null);
 
   const changePlayer1Color = (color) => {
@@ -58,7 +59,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused, col
         x: PLAYER_SIDE_GAP,
         color: '#434343',
         magic: { ...DEFAULT_SPELL },
-        isWinner: false
       },
       player2: {
         ...DEFAULT_PLAYER,
@@ -66,7 +66,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused, col
         x: canvas.width - PLAYER_SIDE_GAP,
         color: '#434343',
         magic: { ...DEFAULT_SPELL },
-        isWinner: false
       },
     };
 
@@ -97,14 +96,14 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused, col
       context.closePath();
     };
 
-    const drawSpell = ({ x, y }) => {
+    const drawSpell = ({ x, y }, color) => {
       context.beginPath();
       context.arc(x, y, magicradius, 0, Math.PI * 2);
-      context.fillStyle = colorSpell;
+      context.fillStyle = color;
       context.fill();
       context.closePath();
     };
-    console.log(colorSpell)
+    // console.log('canvas', colorSpell)
 
     // let countP1 = 0
     // let countP2 = 0
@@ -225,9 +224,10 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused, col
             console.log('1', context.state)
             // setDamageCounterPlayer1((prevCount) => prevCount + 1);
           } else {
+            const newColor = player.id === 1 ? context.state.players.player1.magic.color : context.state.players.player2.magic.color
             const newX = player.id === 1 ? activeSpell.x + SPELL_MOVING_SPEED : activeSpell.x - SPELL_MOVING_SPEED;
             acc.push({ ...activeSpell, x: newX });
-            drawSpell(activeSpell);
+            drawSpell(activeSpell, newColor);
           }
           
           return acc;

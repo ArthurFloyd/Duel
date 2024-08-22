@@ -12,9 +12,11 @@ function App() {
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
   const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
 
-  const [colorSpell, setColoreSpell] = useState('#ec4176')
+  const [colorSpellPlayer1, setColoreSpellPlayer1] = useState('#ec4176')
+  const [colorSpellPlayer2, setColoreSpellPlayer2] = useState('#ec4176')
 
   const inputRef = useRef(null);
+  // console.log('app', colorSpell)
 
   // const gameOver = {
   //   winner: '',
@@ -27,25 +29,66 @@ function App() {
       return null;
     }
 
+    const handleColorSpellChange = (event) => {
+      let playerId = event.target.id
+
+      console.log('testp1', colorSpellPlayer1)
+      console.log('testp2', colorSpellPlayer2)
+      playerId === 1 ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
+      const currentCanvas = document.getElementById('canvas');
+      const currentContext = currentCanvas.getContext('2d');
+      const playerKey = `player${playerId}`;
+      currentContext.state = {
+        ...currentContext.state,
+        players: {
+          ...currentContext.state.players,
+          [playerKey]: {
+            ...currentContext.state.players[playerKey],
+            magic: {
+              ...currentContext.state.players[playerKey].magic,
+              color: event.target.value,
+            }
+          }
+        }
+      }
+    }
+
+
     return ReactDOM.createPortal(
       <div className='modal' style={{
         position: 'absolute', ...portalPosition, display: "flex", justify: "center"
       }
       }>
-        <label className='conteiner' value={colorSpell} ref={inputRef} onChange={(e) => setColoreSpell(e.target.value)}>
-          {/* <label className='conteiner'> */}
-          <input value='#f2f2eb' id="1" name="player1" type="color" />
+        <label className='conteiner'>
+          <input
+            id="1"
+            name="player1"
+            type="color"
+            value={colorSpellPlayer1}
+            ref={inputRef}
+            onChange={handleColorSpellChange}
+          />
           <div className="circle"></div>
         </label>
         <p>change the color of your spells</p>
         <label className='conteiner'>
-          <input value="#ec4176" id="2" name="player2" type="color" />
+          <input id="2"
+            name="player2"
+            type="color"
+            value={colorSpellPlayer2}
+            ref={inputRef}
+            onChange={handleColorSpellChange}
+          />
           <div className="circle"></div>
         </label>
       </div >,
       portalContainer,
-    );
+    )
   };
+
+
+
+
   // console.log(damageCounter)
   const pauseGame = () => {
     // console.log('PAUSE!!!')
@@ -70,10 +113,10 @@ function App() {
     currentContext.state = { ...currentContext.state, isPaused: false };
     // console.log(currentContext.state);
   };
-  if (damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3) {
-    // alert('Congratulations!')
-  }
-  const isPaused = damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3
+  // if (damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3) {
+  //   // alert('Congratulations!')
+  // }
+  // const isPaused = damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3
   // const currentCanvas = document.getElementById('canvas');
   // const currentContext = currentCanvas.getContext('2d');
   // if (damageCounterPlayer1 >= 3) {
@@ -100,14 +143,16 @@ function App() {
         <Canvas
           setDamageCounterPlayer1={setDamageCounterPlayer1}
           setDamageCounterPlayer2={setDamageCounterPlayer2}
-          colorSpell={colorSpell}
+        // colorSpellPlayer1={colorSpellPlayer1}
+        // colorSpellPlayer2={colorSpellPlayer2}
         // gameOver={gameOver}
         />
         <PlayersControls />
       </div>
       {renderPortal()}
     </>
-  );
-}
+  )
+};
+
 
 export default App;
