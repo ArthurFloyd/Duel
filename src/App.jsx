@@ -34,7 +34,7 @@ function App() {
 
       console.log('testp1', colorSpellPlayer1)
       console.log('testp2', colorSpellPlayer2)
-      playerId === 1 ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
+      playerId === '1' ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
       const currentContext = currentCanvas.getContext('2d');
       const playerKey = `player${playerId}`;
