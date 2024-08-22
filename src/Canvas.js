@@ -15,7 +15,7 @@ const DEFAULT_SPELL = {
   castingRate: DEFAULT_SPELL_CASTING_RATE,
   lastCastedAt: Date.now(),
   activeSpells: [],
-  color: '#ec4176',
+  color: '#d0d5ce',
 };
 
 const DEFAULT_PLAYER = {
@@ -32,7 +32,7 @@ const DEFAULT_PLAYER = {
 };
 
 // console.log()
-const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) => {
+const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
   const canvasRef = useRef(null);
 
   const changePlayer1Color = (color) => {
@@ -59,6 +59,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
         x: PLAYER_SIDE_GAP,
         color: '#434343',
         magic: { ...DEFAULT_SPELL },
+        hits: 0,
       },
       player2: {
         ...DEFAULT_PLAYER,
@@ -66,6 +67,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
         x: canvas.width - PLAYER_SIDE_GAP,
         color: '#434343',
         magic: { ...DEFAULT_SPELL },
+        hits: 0,
       },
     };
 
@@ -105,8 +107,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
     };
     // console.log('canvas', colorSpell)
 
-    // let countP1 = 0
-    // let countP2 = 0
 
     const castSpell = (player) => {
       const canCastSpell = Date.now() - player.magic.castingRate >= player.magic.lastCastedAt;
@@ -221,7 +221,8 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
             oponentKey === 'player1' ? 
             setDamageCounterPlayer1((prevCount) => prevCount + 1) : 
             setDamageCounterPlayer2((prevCount) => prevCount + 1)
-            console.log('1', context.state)
+            context.state.players[oponentKey].hits += 1
+            // console.log('1', context.state)
             // setDamageCounterPlayer1((prevCount) => prevCount + 1);
           } else {
             const newColor = player.id === 1 ? context.state.players.player1.magic.color : context.state.players.player2.magic.color
@@ -240,13 +241,13 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
       // TODO: possibility of a tie?
       // TODO: convert to a switch
       // winner
-      // if (isPaused) {
-      //   alert(`Congratulations!`)
-      // } else if (countP2 > 2) {
-      //   alert(`Winner Player 2`)
-      // } else {
+      if (context.state.players.player1.hits >= 3) {
+        alert(`Winner Player 2`)
+      } else if (context.state.players.player2.hits >= 3) {
+        alert(`Winner Player 1`)
+      } else {
         requestAnimationFrame(draw);
-      // }
+      }
     }
 
     canvas.addEventListener('mousemove', (event) => {
@@ -260,13 +261,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2, isPaused}) =>
 
   return (
     <div>
-      {/* <div>
-        <button className="p1" onClick={() => changePlayer1Color('#FFFFFF')}>player 1</button>
-      </div>
-      <div>
-        <button className="p2" onClick={() => <ChangeColor />}>player 2</button>
-      </div> */}
-        {/* <changeColor /> */}
       <canvas 
         id='canvas'
         ref={canvasRef}

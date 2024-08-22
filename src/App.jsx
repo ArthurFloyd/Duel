@@ -12,8 +12,8 @@ function App() {
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
   const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
 
-  const [colorSpellPlayer1, setColoreSpellPlayer1] = useState('#ec4176')
-  const [colorSpellPlayer2, setColoreSpellPlayer2] = useState('#ec4176')
+  const [colorSpellPlayer1, setColoreSpellPlayer1] = useState('#d0d5ce')
+  const [colorSpellPlayer2, setColoreSpellPlayer2] = useState('#d0d5ce')
 
   const inputRef = useRef(null);
   // console.log('app', colorSpell)
@@ -85,6 +85,42 @@ function App() {
       portalContainer,
     )
   };
+  // const handleScore = (event) => {
+  //   let playerId = event.target.id
+
+  //   playerId === '1' ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
+  //   const currentCanvas = document.getElementById('canvas');
+  //   const currentContext = currentCanvas.getContext('2d');
+  //   const playerKey = `player${playerId}`;
+  //   if (damageCounterPlayer1 >= 3) {
+  //     currentContext.state = {
+  //       ...currentContext.state,
+  //       players: {
+  //         ...currentContext.state.players,
+  //         [playerKey]: {
+  //           ...currentContext.state.players[playerKey],
+  //           isWinner: true,
+  //         }
+  //       }
+  //     }
+  //   }
+  //   if (damageCounterPlayer2 >= 3) {
+  //     currentContext.state = {
+  //       ...currentContext.state,
+  //       players: {
+  //         ...currentContext.state.players,
+  //         [playerKey]: {
+  //           ...currentContext.state.players[playerKey],
+  //           isWinner: true,
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   return (
+  //     <div>{`${damageCounterPlayer1}/${damageCounterPlayer2}`}</div>
+  //   )
+  // };
 
 
 
@@ -125,10 +161,36 @@ function App() {
   // } else if (damageCounterPlayer2 >= 3) {
   //   currentContext.state.players.player2.isWinner = true
   // }
+  // const currentCanvas = document.getElementById('canvas');
+  // const currentContext = currentCanvas.getContext('2d');
+  // if (damageCounterPlayer1 >= 3) {
+  //   currentContext.state = {
+  //     ...currentContext.state,
+  //     players: {
+  //       ...currentContext.state.players,
+  //       player1: {
+  //         ...currentContext.state.players.player1,
+  //         isWinner: true,
+  //       }
+  //     }
+  //   }
+  // } else if (damageCounterPlayer2 >= 3) {
+  //   currentContext.state = {
+  //     ...currentContext.state,
+  //     players: {
+  //       ...currentContext.state.players,
+  //       player2: {
+  //         ...currentContext.state.players.player2,
+  //         isWinner: true,
+  //       }
+  //     }
+  //   }
+  // }
 
   return (
     <>
       <div>
+        {/* {handleScore} */}
         {/* <ChangeColor /> */}
         <div>{`${damageCounterPlayer1}/${damageCounterPlayer2}`}</div>
         <button className="btn" onClick={(event) => {
