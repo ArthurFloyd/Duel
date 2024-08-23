@@ -79,30 +79,6 @@ function App() {
     )
   };
 
-  const pauseGame = () => {
-    // console.log('PAUSE!!!')
-    const currentCanvas = document.getElementById('canvas');
-    if (!currentCanvas) {
-      // console.log('no canvas');
-    }
-
-    const currentContext = currentCanvas.getContext('2d');
-    currentContext.state = { ...currentContext.state, isPaused: true };
-    // console.log(currentContext.state);
-  };
-
-  const resumeGame = () => {
-    // console.log('RESUME!!!')
-    const currentCanvas = document.getElementById('canvas');
-    if (!currentCanvas) {
-      // console.log('no canvas');
-    }
-
-    const currentContext = currentCanvas.getContext('2d');
-    currentContext.state = { ...currentContext.state, isPaused: false };
-    // console.log(currentContext.state);
-  };
-
   return (
     <>
       <div>
@@ -111,8 +87,6 @@ function App() {
           setIsPortalVisible(previousValue => {
             return !previousValue;
           });
-
-          isPortalVisible ? resumeGame() : pauseGame();
         }}></button>
         <Canvas
           setDamageCounterPlayer1={setDamageCounterPlayer1}

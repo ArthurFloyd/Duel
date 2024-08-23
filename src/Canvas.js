@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-const CANVAS_SIZES = { width: 800, height: 500, display: "block", marginLeft: "auto",
+const CANVAS_STYLE = { width: 800, height: 500, display: "block", marginLeft: "auto",
   margin: "100%" };
 
 const PLAYER_SIDE_GAP = 30;
@@ -82,7 +82,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
     // field
     const drawGameField = () => {
       context.fillStyle = '#f2f2eb';
-      context.fillRect(0, 0, CANVAS_SIZES.width, CANVAS_SIZES.height);
+      context.fillRect(0, 0, CANVAS_STYLE.width, CANVAS_STYLE.height);
     };
 
     const drawPlayer = (player) => {
@@ -213,9 +213,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
       moveSpells(player1);
       moveSpells(player2);
 
-      // TODO: possibility of a tie?
-      // TODO: convert to a switch
-      // winner
+
       if (context.state.players.player1.hits >= 3) {
         alert(`Winner Player 2`)
       } else if (context.state.players.player2.hits >= 3) {
@@ -239,8 +237,8 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
       <canvas 
         id='canvas'
         ref={canvasRef}
-        width={CANVAS_SIZES.width}
-        height={CANVAS_SIZES.height}
+        width={CANVAS_STYLE.width}
+        height={CANVAS_STYLE.height}
       />
     </div>
   )
