@@ -3,15 +3,19 @@
 Duel is a browser game, made on canvas with react components. The game is designed for two players(wizards), players move across the field and shoot spells at each other. Players have the opportunity to adjust the movement speed and shooting speed using the slider. You can also customize the color of the spell for each player in a separate menu. The game lasts until the player deals or receives 3 points of damage
 
 ## Screenshots
+
 ### Gameplay
-### Сolor selection menu
+
 ![Изображение][1]
 
-[1]: public/colorSelectionMenu.png "Сolor selection menu"
-## Get started
+[1]: public/getStarted.png "Get started"
+### Сolor selection menu
+
 ![Изображение][2]
 
-[2]: public/getStarted.png "Get started"
+[2]: public/colorSelectionMenu.png "Сolor selection menu"
+## Get started
+
 ```bash
 git clone git@github.com:ArthurFloyd/duel.git 
 ```
