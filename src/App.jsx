@@ -16,12 +16,6 @@ function App() {
   const [colorSpellPlayer2, setColoreSpellPlayer2] = useState('#d0d5ce')
 
   const inputRef = useRef(null);
-  // console.log('app', colorSpell)
-
-  // const gameOver = {
-  //   winner: '',
-  //   isPaused: false,
-  // }
 
   const renderPortal = () => {
     const portalContainer = document.getElementById('portal');
@@ -32,8 +26,6 @@ function App() {
     const handleColorSpellChange = (event) => {
       let playerId = event.target.id
 
-      console.log('testp1', colorSpellPlayer1)
-      console.log('testp2', colorSpellPlayer2)
       playerId === '1' ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
       const currentContext = currentCanvas.getContext('2d');
@@ -70,7 +62,8 @@ function App() {
           />
           <div className="circle"></div>
         </label>
-        <p>change the color of your spells</p>
+        <p>change the color
+          of your spells</p>
         <label className='conteiner'>
           <input id="2"
             name="player2"
@@ -85,47 +78,7 @@ function App() {
       portalContainer,
     )
   };
-  // const handleScore = (event) => {
-  //   let playerId = event.target.id
 
-  //   playerId === '1' ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
-  //   const currentCanvas = document.getElementById('canvas');
-  //   const currentContext = currentCanvas.getContext('2d');
-  //   const playerKey = `player${playerId}`;
-  //   if (damageCounterPlayer1 >= 3) {
-  //     currentContext.state = {
-  //       ...currentContext.state,
-  //       players: {
-  //         ...currentContext.state.players,
-  //         [playerKey]: {
-  //           ...currentContext.state.players[playerKey],
-  //           isWinner: true,
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if (damageCounterPlayer2 >= 3) {
-  //     currentContext.state = {
-  //       ...currentContext.state,
-  //       players: {
-  //         ...currentContext.state.players,
-  //         [playerKey]: {
-  //           ...currentContext.state.players[playerKey],
-  //           isWinner: true,
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   return (
-  //     <div>{`${damageCounterPlayer1}/${damageCounterPlayer2}`}</div>
-  //   )
-  // };
-
-
-
-
-  // console.log(damageCounter)
   const pauseGame = () => {
     // console.log('PAUSE!!!')
     const currentCanvas = document.getElementById('canvas');
@@ -149,65 +102,21 @@ function App() {
     currentContext.state = { ...currentContext.state, isPaused: false };
     // console.log(currentContext.state);
   };
-  // if (damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3) {
-  //   // alert('Congratulations!')
-  // }
-  // const isPaused = damageCounterPlayer1 >= 3 || damageCounterPlayer2 >= 3
-  // const currentCanvas = document.getElementById('canvas');
-  // const currentContext = currentCanvas.getContext('2d');
-  // if (damageCounterPlayer1 >= 3) {
-  //   // console.log('no canvas');
-  //   currentContext.state.players.player1.isWinner = true
-  // } else if (damageCounterPlayer2 >= 3) {
-  //   currentContext.state.players.player2.isWinner = true
-  // }
-  // const currentCanvas = document.getElementById('canvas');
-  // const currentContext = currentCanvas.getContext('2d');
-  // if (damageCounterPlayer1 >= 3) {
-  //   currentContext.state = {
-  //     ...currentContext.state,
-  //     players: {
-  //       ...currentContext.state.players,
-  //       player1: {
-  //         ...currentContext.state.players.player1,
-  //         isWinner: true,
-  //       }
-  //     }
-  //   }
-  // } else if (damageCounterPlayer2 >= 3) {
-  //   currentContext.state = {
-  //     ...currentContext.state,
-  //     players: {
-  //       ...currentContext.state.players,
-  //       player2: {
-  //         ...currentContext.state.players.player2,
-  //         isWinner: true,
-  //       }
-  //     }
-  //   }
-  // }
 
   return (
     <>
       <div>
-        {/* {handleScore} */}
-        {/* <ChangeColor /> */}
-        <div>{`${damageCounterPlayer1}/${damageCounterPlayer2}`}</div>
-        <button className="btn" onClick={(event) => {
-          // console.log(event.target.getBoundingClientRect())
+        <button text={`${damageCounterPlayer1}/${damageCounterPlayer2}`} hover-text='color spells' className="btn" onClick={(event) => {
           setPortalPosition({ top: event.target.getBoundingClientRect().top + 25, left: event.target.getBoundingClientRect().left + 50 });
           setIsPortalVisible(previousValue => {
             return !previousValue;
           });
 
           isPortalVisible ? resumeGame() : pauseGame();
-        }}>color spell</button>
+        }}></button>
         <Canvas
           setDamageCounterPlayer1={setDamageCounterPlayer1}
           setDamageCounterPlayer2={setDamageCounterPlayer2}
-        // colorSpellPlayer1={colorSpellPlayer1}
-        // colorSpellPlayer2={colorSpellPlayer2}
-        // gameOver={gameOver}
         />
         <PlayersControls />
       </div>

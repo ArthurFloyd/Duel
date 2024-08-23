@@ -1,6 +1,4 @@
 import { useEffect, useRef } from "react"
-// import ChangeColor from "./menuChangeColor";
-// import changeColor from './menuChangeColor';
 
 const CANVAS_SIZES = { width: 800, height: 500, display: "block", marginLeft: "auto",
   margin: "100%" };
@@ -31,20 +29,17 @@ const DEFAULT_PLAYER = {
   dy: PLAYER_MOVING_SPEED,
 };
 
-// console.log()
 const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
   const canvasRef = useRef(null);
 
-  const changePlayer1Color = (color) => {
-    const currentCanvas = canvasRef.current;
-    if (!currentCanvas) {
-      // console.log('no canvas');
-    }
+  // const changePlayer1Color = (color) => {
+  //   const currentCanvas = canvasRef.current;
+  //   if (!currentCanvas) {
+  //   }
 
-    const currentContext = currentCanvas.getContext('2d');
-    currentContext.state = { player1Color: color };
-    // console.log(currentContext.state);
-  };
+  //   const currentContext = currentCanvas.getContext('2d');
+  //   currentContext.state = { player1Color: color };
+  // };
 
   const initGame = () => {
     const canvas = canvasRef.current;
@@ -105,7 +100,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
       context.fill();
       context.closePath();
     };
-    // console.log('canvas', colorSpell)
 
 
     const castSpell = (player) => {
@@ -115,7 +109,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
       }
 
       const playerKey = `player${player.id}`;
-      // console.log({ ...player, playerKey })
 
       context.state.players[playerKey].magic.lastCastedAt = Date.now();
       context.state.players[playerKey].magic.activeSpells.push({ x: player.x, y: player.y });
@@ -184,21 +177,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
         return distance <= spellRadius;
       };
 
-      // change color
-      // const handleClick = (event) => {
-      //   context.state = { test: 'abcd' };
-        // const rect = ref.current.getBoundingClientRect();
-        // if (mouseX === players.player1.x || mouseY === players.player2.y ) {
-        // }
-
-        //   const colorX = event.clientX - rect.left;
-        //   const colorY = event.clientY - rect.top;
-        //   // Проверяем, находится ли клик внутри прямоугольника
-        // if (colorX >= 50 && colorX <= 150 && colorY >= 50 && colorY <= 150) {
-        //   // Изменяем цвет фигуры на случайный цвет
-        // }
-      // };
-
       drawGameField();
       drawPlayer(player1);
       drawPlayer(player2);
@@ -217,13 +195,10 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
           );
 
           if (isPlayerHitBySpell) {
-            // context.state.players[oponentKey].score + 1;
             oponentKey === 'player1' ? 
             setDamageCounterPlayer1((prevCount) => prevCount + 1) : 
             setDamageCounterPlayer2((prevCount) => prevCount + 1)
             context.state.players[oponentKey].hits += 1
-            // console.log('1', context.state)
-            // setDamageCounterPlayer1((prevCount) => prevCount + 1);
           } else {
             const newColor = player.id === 1 ? context.state.players.player1.magic.color : context.state.players.player2.magic.color
             const newX = player.id === 1 ? activeSpell.x + SPELL_MOVING_SPEED : activeSpell.x - SPELL_MOVING_SPEED;
