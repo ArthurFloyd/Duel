@@ -2,10 +2,31 @@
   display: flex;
   justify-content: space-between;
 
+  width: 800px;
+  height: 70px;
+  border: none;
+  border-radius: 0px 0px 10px 10px;
+  text-decoration: none;
+  font-family: "Press Start 2P", system-ui;
+  color: white;
+  background: #434343;
+  box-shadow: 0 5px 0 #434343;
+  font-size: small;
 }
 
-.moving-speed {
-  color: #000;
-  background-color: #000;
+input::moving-speed {
+  color: #434343;
+  background: #434343;
+}
 
+
+div.slider {
+  margin: 10px;
+  padding: auto;
+}
+
+input[type=range] {
+  background: #434343;
+  background-color: #434343;
+  color: #434343;
 }

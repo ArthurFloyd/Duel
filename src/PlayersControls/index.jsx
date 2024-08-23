@@ -62,7 +62,7 @@ const PlayersControls = () => {
     };
 
     return (
-      <div>
+      <div className='slider'>
         <span>
           player {playerId}
         </span>
@@ -76,7 +76,7 @@ const PlayersControls = () => {
             value={playerId === 1 ? movingSpeedModifier1 : movingSpeedModifier2}
             onChange={handleMovingSpeedChange}
           />
-          <label for="moving-speed">Moving Speed</label>
+          <label for="moving-speed">move</label>
         </div>
         <div>
           <input
@@ -88,7 +88,7 @@ const PlayersControls = () => {
             value={playerId === 1 ? castingRateModifier1 : castingRateModifier2}
             onChange={handleCastingRateChange}
           />
-          <label for="casting-speed">Casting Speed</label>
+          <label for="casting-speed">cast</label>
         </div>
       </div>
     );

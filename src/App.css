@@ -14,8 +14,8 @@ div.modal {
   position: 'absolute';
   justify-content: center;
   width: 700px;
-  height: 200px;
-  margin-top: 150px;
+  height: 300px;
+  margin-top: 190px;
 }
 
 p {
@@ -32,7 +32,7 @@ button.btn {
   width: 800px;
   height: 50px;
   border: none;
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
   text-decoration: none;
   font-family: "Press Start 2P", system-ui;
   color: white;
