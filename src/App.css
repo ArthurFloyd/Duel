@@ -8,8 +8,7 @@
 
 div.modal {
   display: flex;
-  border: '2px solid red';
-  position: 'absolute';
+  position: absolute;
   justify-content: center;
   width: 700px;
   height: 300px;
@@ -50,7 +49,7 @@ button:hover::before {
   box-sizing: border-box;
 }
 
-.conteiner {
+.container {
   display: inline-block;
   position: relative;
   width: 150px;

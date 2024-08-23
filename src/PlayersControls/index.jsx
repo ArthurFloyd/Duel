@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+
 import './styles.css';
 import { DEFAULT_SPELL_CASTING_RATE, PLAYER_MOVING_SPEED } from '../Canvas';
 
-// TODO: refactor the whole thing
 const PlayersControls = () => {
   const [movingSpeedModifier1, setMovingSpeedModifier1] = useState(1);
   const [movingSpeedModifier2, setMovingSpeedModifier2] = useState(1);
@@ -10,15 +10,10 @@ const PlayersControls = () => {
   const [castingRateModifier1, setCastingRateModifier1] = useState(5);
   const [castingRateModifier2, setCastingRateModifier2] = useState(5);
 
-  // TODO: refactor later
   const renderPlayerControl = (playerId) => {
     const handleMovingSpeedChange = (event) => {
-      // console.log(event.target.value);
       playerId === 1 ? setMovingSpeedModifier1(event.target.value) : setMovingSpeedModifier2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
-      if (!currentCanvas) {
-        // console.log('no canvas');
-      }
 
       const currentContext = currentCanvas.getContext('2d');
 
@@ -36,12 +31,8 @@ const PlayersControls = () => {
     };
 
     const handleCastingRateChange = (event) => {
-      // console.log(event.target.value);
       playerId === 1 ? setCastingRateModifier1(event.target.value) : setCastingRateModifier2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
-      if (!currentCanvas) {
-        // console.log('no canvas');
-      }
 
       const currentContext = currentCanvas.getContext('2d');
 

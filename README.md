@@ -9,13 +9,13 @@ Duel is a browser game, made on canvas with react components. The game is design
 ## Get started
 
 ```bash
-git clone git@github.com:ArthurFloyd/duel.git \\ to copy repository
+git clone git@github.com:ArthurFloyd/duel.git 
 ```
 ```bash
-npm ci \\ to install dependencies
+npm ci 
 ```
 ```bash
-npm start \\ to run app
+npm start 
 ```
 
 ## Supports the following browsers

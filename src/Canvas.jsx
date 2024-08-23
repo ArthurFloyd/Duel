@@ -1,10 +1,14 @@
 import { useEffect, useRef } from "react"
 
-const CANVAS_STYLE = { width: 800, height: 500, display: "block", marginLeft: "auto",
-  margin: "100%" };
+const CANVAS_STYLE = {
+  width: 800, height: 500, display: "block", marginLeft: "auto",
+  margin: "100%"
+};
 
 const PLAYER_SIDE_GAP = 30;
+const DEFAULT_PLAYER_HITS = 0
 
+export const DEFAULT_PLAYER_COLOR = '#434343'
 export const PLAYER_MOVING_SPEED = 1.5;
 export const SPELL_MOVING_SPEED = 3.5;
 export const DEFAULT_SPELL_CASTING_RATE = 5000;
@@ -29,17 +33,8 @@ const DEFAULT_PLAYER = {
   dy: PLAYER_MOVING_SPEED,
 };
 
-const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
+const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
   const canvasRef = useRef(null);
-
-  // const changePlayer1Color = (color) => {
-  //   const currentCanvas = canvasRef.current;
-  //   if (!currentCanvas) {
-  //   }
-
-  //   const currentContext = currentCanvas.getContext('2d');
-  //   currentContext.state = { player1Color: color };
-  // };
 
   const initGame = () => {
     const canvas = canvasRef.current;
@@ -52,17 +47,17 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
         ...DEFAULT_PLAYER,
         id: 1,
         x: PLAYER_SIDE_GAP,
-        color: '#434343',
+        color: DEFAULT_PLAYER_COLOR,
         magic: { ...DEFAULT_SPELL },
-        hits: 0,
+        hits: DEFAULT_PLAYER_HITS,
       },
       player2: {
         ...DEFAULT_PLAYER,
         id: 2,
         x: canvas.width - PLAYER_SIDE_GAP,
-        color: '#434343',
+        color: DEFAULT_PLAYER_COLOR,
         magic: { ...DEFAULT_SPELL },
-        hits: 0,
+        hits: DEFAULT_PLAYER_HITS,
       },
     };
 
@@ -73,7 +68,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
     const { canvas, context } = initGame();
 
     // spells
-    let magicradius = 10;
+    let spellRadius = 10;
 
     // cursor
     let mouseX = 0;
@@ -95,7 +90,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
 
     const drawSpell = ({ x, y }, color) => {
       context.beginPath();
-      context.arc(x, y, magicradius, 0, Math.PI * 2);
+      context.arc(x, y, spellRadius, 0, Math.PI * 2);
       context.fillStyle = color;
       context.fill();
       context.closePath();
@@ -126,7 +121,6 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
       castSpell({ ...player1 });
       castSpell({ ...player2 });
 
-      // TODO: remove clones
       // edge collision player1
       if (player1.y >= 480 || player1.y <= 20) {
         context.state.players.player1.dy = -player1.dy;
@@ -157,8 +151,7 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
         context.state.players.player2.dy = -context.state.players.player2.dy;
       }
 
-      // spell collision 
-      const getIsHitBySpell = (spellX, spellY, spellRadius, playerX, playerY, playerWidth, playerHeight ) => {
+      const getIsHitBySpell = (spellX, spellY, spellRadius, playerX, playerY, playerWidth, playerHeight) => {
         if (
           spellX >= playerX &&
           spellX <= playerX + playerWidth &&
@@ -177,17 +170,13 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
         return distance <= spellRadius;
       };
 
-      drawGameField();
-      drawPlayer(player1);
-      drawPlayer(player2);
-
       const moveSpells = (player) => {
         const [playerKey, oponentKey] = player.id === 1 ? ['player1', 'player2'] : ['player2', 'player1'];
         context.state.players[playerKey].magic.activeSpells = context.state.players[playerKey].magic.activeSpells.reduce((acc, activeSpell) => {
           const isPlayerHitBySpell = getIsHitBySpell(
             activeSpell.x,
             activeSpell.y,
-            magicradius,
+            spellRadius,
             context.state.players[oponentKey].x,
             context.state.players[oponentKey].y,
             0,
@@ -195,9 +184,9 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
           );
 
           if (isPlayerHitBySpell) {
-            oponentKey === 'player1' ? 
-            setDamageCounterPlayer1((prevCount) => prevCount + 1) : 
-            setDamageCounterPlayer2((prevCount) => prevCount + 1)
+            oponentKey === 'player1' ?
+              setDamageCounterPlayer1((prevCount) => prevCount + 1) :
+              setDamageCounterPlayer2((prevCount) => prevCount + 1)
             context.state.players[oponentKey].hits += 1
           } else {
             const newColor = player.id === 1 ? context.state.players.player1.magic.color : context.state.players.player2.magic.color
@@ -205,19 +194,23 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
             acc.push({ ...activeSpell, x: newX });
             drawSpell(activeSpell, newColor);
           }
-          
+
           return acc;
         }, []);
       };
-      
+
+      drawGameField();
+      drawPlayer(player1);
+      drawPlayer(player2);
       moveSpells(player1);
       moveSpells(player2);
-
 
       if (context.state.players.player1.hits >= 3) {
         alert(`Winner Player 2`)
       } else if (context.state.players.player2.hits >= 3) {
         alert(`Winner Player 1`)
+      } else if (context.state.players.player1.hits >= 3 || context.state.players.player2.hits >= 3) {
+        alert(`Congratulations! you have a draw :)`)
       } else {
         requestAnimationFrame(draw);
       }
@@ -227,14 +220,13 @@ const Canvas = ({setDamageCounterPlayer1, setDamageCounterPlayer2}) => {
       mouseX = event.offsetX;
       mouseY = event.offsetY;
     });
-  
 
     draw()
   }, []);
 
   return (
     <div>
-      <canvas 
+      <canvas
         id='canvas'
         ref={canvasRef}
         width={CANVAS_STYLE.width}

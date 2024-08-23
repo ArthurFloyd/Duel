@@ -1,19 +1,20 @@
-import Canvas from './Canvas';
-// import ChangeColor from './menuChangeColor';
-import './App.css'
 import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom'
-import PlayersControls from './PlayersControls';
 
-function App() {
+import Canvas from './Canvas';
+import './App.css'
+import PlayersControls from './PlayersControls';
+import { DEFAULT_PLAYER_COLOR } from './Canvas'
+
+const App = () => {
   const [isPortalVisible, setIsPortalVisible] = useState(false);
   const [portalPosition, setPortalPosition] = useState({ top: 0, left: 0 });
 
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
   const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
 
-  const [colorSpellPlayer1, setColoreSpellPlayer1] = useState('#d0d5ce')
-  const [colorSpellPlayer2, setColoreSpellPlayer2] = useState('#d0d5ce')
+  const [colorSpellPlayer1, setColorSpellPlayer1] = useState(DEFAULT_PLAYER_COLOR)
+  const [colorSpellPlayer2, setColorSpellPlayer2] = useState(DEFAULT_PLAYER_COLOR)
 
   const inputRef = useRef(null);
 
@@ -26,7 +27,7 @@ function App() {
     const handleColorSpellChange = (event) => {
       let playerId = event.target.id
 
-      playerId === '1' ? setColoreSpellPlayer1(event.target.value) : setColoreSpellPlayer2(event.target.value);
+      playerId === '1' ? setColorSpellPlayer1(event.target.value) : setColorSpellPlayer2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
       const currentContext = currentCanvas.getContext('2d');
       const playerKey = `player${playerId}`;
@@ -51,7 +52,7 @@ function App() {
         position: 'absolute', ...portalPosition, display: "flex", justify: "center"
       }
       }>
-        <label className='conteiner'>
+        <label className='container'>
           <input
             id="1"
             name="player1"
@@ -64,7 +65,7 @@ function App() {
         </label>
         <p>change the color
           of your spells</p>
-        <label className='conteiner'>
+        <label className='container'>
           <input id="2"
             name="player2"
             type="color"

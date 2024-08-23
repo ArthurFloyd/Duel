@@ -24,9 +24,3 @@ div.slider {
   margin: 10px;
   padding: auto;
 }
-
-input[type=range] {
-  background: #434343;
-  background-color: #434343;
-  color: #434343;
-}
