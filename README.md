@@ -8,7 +8,7 @@ Duel is a browser game, made on canvas with react components. The game is design
 
 ![Изображение][1]
 
-[1]: public/getStarted.png "Get started"
+[1]: public/gameplay.png "gameplay"
 ### Сolor selection menu
 
 ![Изображение][2]
