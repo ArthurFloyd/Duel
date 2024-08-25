@@ -13,8 +13,8 @@ const App = () => {
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
   const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
 
-  const [colorSpellPlayer1, setColorSpellPlayer1] = useState(DEFAULT_PLAYER_COLOR)
-  const [colorSpellPlayer2, setColorSpellPlayer2] = useState(DEFAULT_PLAYER_COLOR)
+  const [colorSpellPlayer1, setColorSpellPlayer1] = useState(DEFAULT_PLAYER_COLOR);
+  const [colorSpellPlayer2, setColorSpellPlayer2] = useState(DEFAULT_PLAYER_COLOR);
 
   const inputRef = useRef(null);
 
@@ -44,7 +44,7 @@ const App = () => {
           }
         }
       }
-    }
+    };
 
 
     return ReactDOM.createPortal(

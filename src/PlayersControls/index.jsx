@@ -67,7 +67,7 @@ const PlayersControls = () => {
             value={playerId === 1 ? movingSpeedModifier1 : movingSpeedModifier2}
             onChange={handleMovingSpeedChange}
           />
-          <label for="moving-speed">move</label>
+          <label htmlFor="moving-speed">move</label>
         </div>
         <div>
           <input
@@ -79,7 +79,7 @@ const PlayersControls = () => {
             value={playerId === 1 ? castingRateModifier1 : castingRateModifier2}
             onChange={handleCastingRateChange}
           />
-          <label for="casting-speed">cast</label>
+          <label htmlFor="casting-speed">cast</label>
         </div>
       </div>
     );

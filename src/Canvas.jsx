@@ -6,9 +6,9 @@ const CANVAS_STYLE = {
 };
 
 const PLAYER_SIDE_GAP = 30;
-const DEFAULT_PLAYER_HITS = 0
+const DEFAULT_PLAYER_HITS = 0;
 
-export const DEFAULT_PLAYER_COLOR = '#434343'
+export const DEFAULT_PLAYER_COLOR = '#434343';
 export const PLAYER_MOVING_SPEED = 1.5;
 export const SPELL_MOVING_SPEED = 3.5;
 export const DEFAULT_SPELL_CASTING_RATE = 5000;
@@ -113,7 +113,7 @@ const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
     const draw = () => {
       const { player1, player2 } = context.state.players;
 
-      context.clearRect(0, 0, canvas.width, canvas.height)
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
       context.state.players.player1.y += player1.dy;
       context.state.players.player2.y += player2.dy;
@@ -133,30 +133,30 @@ const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
 
       // mouse collision player1
       if (
-        context.state.players.player1.x + 20 > mouseX &&
-        context.state.players.player1.x < mouseX + 10 &&
-        context.state.players.player1.y + 10 > mouseY &&
-        context.state.players.player1.y < mouseY + 20
+        (context.state.players.player1.x + 20 > mouseX) &&
+        (context.state.players.player1.x < mouseX + 10) &&
+        (context.state.players.player1.y + 10 > mouseY) &&
+        (context.state.players.player1.y < mouseY + 20)
       ) {
         context.state.players.player1.dy = -context.state.players.player1.dy;
       }
 
       // mouse collision player2
       if (
-        context.state.players.player2.x + 20 > mouseX &&
-        context.state.players.player2.x < mouseX + 10 &&
-        context.state.players.player2.y + 10 > mouseY &&
-        context.state.players.player2.y < mouseY + 20
+        (context.state.players.player2.x + 20 > mouseX) &&
+        (context.state.players.player2.x < mouseX + 10) &&
+        (context.state.players.player2.y + 10 > mouseY) &&
+        (context.state.players.player2.y < mouseY + 20)
       ) {
         context.state.players.player2.dy = -context.state.players.player2.dy;
       }
 
       const getIsHitBySpell = (spellX, spellY, spellRadius, playerX, playerY, playerWidth, playerHeight) => {
         if (
-          spellX >= playerX &&
-          spellX <= playerX + playerWidth &&
-          spellY >= playerY &&
-          spellY <= playerY + playerHeight
+          (spellX >= playerX) &&
+          (spellX <= playerX + playerWidth) &&
+          (spellY >= playerY) &&
+          (spellY <= playerY + playerHeight)
         ) {
           return true;
         }
