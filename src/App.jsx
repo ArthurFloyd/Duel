@@ -7,7 +7,8 @@ import PlayersControls from './PlayersControls';
 import { DEFAULT_PLAYER_COLOR } from './Canvas'
 
 const App = () => {
-  const [isPortalVisible, setIsPortalVisible] = useState(false);
+  const [isPortalVisible, setIsPortalVisible] = useState(false)
+
   const [portalPosition, setPortalPosition] = useState({ top: 0, left: 0 });
 
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
