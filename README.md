@@ -1,6 +1,6 @@
 # Duel
 
-Duel is a browser game, made on canvas with react components. The game is designed for two players(wizards), players move across the field and shoot spells at each other. Players have the opportunity to adjust the movement speed and shooting speed using the slider. You can also customize the color of the spell for each player in a separate menu. The game lasts until the player deals or receives 3 points of damage
+[Duel](https://petsbucket.website.yandexcloud.net) is a browser game, made on canvas with react components. The game is designed for two players(wizards), players move across the field and shoot spells at each other. Players have the opportunity to adjust the movement speed and shooting speed using the slider. You can also customize the color of the spell for each player in a separate menu. The game lasts until the player deals or receives 3 points of damage
 
 ## Screenshots
 
@@ -25,6 +25,10 @@ npm ci
 ```bash
 npm start 
 ```
+
+## Prewive demo
+
+[Duel](https://petsbucket.website.yandexcloud.net)
 
 ## Supports the following browsers
 
