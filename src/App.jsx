@@ -45,7 +45,9 @@ const App = () => {
     const handleColorSpellChange = (event) => {
       let playerId = event.target.id
 
-      playerId === '1' ? setColorSpellPlayer1(event.target.value) : setColorSpellPlayer2(event.target.value);
+      playerId === '1' ?
+        setColorSpellPlayer1(event.target.value) :
+        setColorSpellPlayer2(event.target.value);
       const currentCanvas = document.getElementById('canvas');
       const currentContext = currentCanvas.getContext('2d');
       const playerKey = `player${playerId}`;
@@ -100,24 +102,22 @@ const App = () => {
   return (
     <>
       <I18nextProvider i18n={i18n}>
-        <div>
-          <button text={`${damageCounterPlayer1}/${damageCounterPlayer2}`}
-            hover-text={t('interface.colorSpellsChangeMenu.messageOutsideTheMenu')}
-            className="btn"
-            onClick={(event) => {
-              setPortalPosition({
-                top: event.target.getBoundingClientRect().top + 25, left: event.target.getBoundingClientRect().left + 50
-              });
-              setIsPortalVisible(previousValue => {
-                return !previousValue;
-              });
-            }}></button>
-          <Canvas
-            setDamageCounterPlayer1={setDamageCounterPlayer1}
-            setDamageCounterPlayer2={setDamageCounterPlayer2}
-          />
-          <PlayersControls />
-        </div>
+        <button text={`${damageCounterPlayer1}/${damageCounterPlayer2}`}
+          hover-text={t('interface.colorSpellsChangeMenu.messageOutsideTheMenu')}
+          className="btn"
+          onClick={(event) => {
+            setPortalPosition({
+              top: event.target.getBoundingClientRect().top + 25, left: event.target.getBoundingClientRect().left + 50
+            });
+            setIsPortalVisible(previousValue => {
+              return !previousValue;
+            });
+          }}></button>
+        <Canvas
+          setDamageCounterPlayer1={setDamageCounterPlayer1}
+          setDamageCounterPlayer2={setDamageCounterPlayer2}
+        />
+        <PlayersControls />
         {renderColorMenu()}
       </I18nextProvider>
     </>

@@ -191,8 +191,12 @@ const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
               setDamageCounterPlayer2((prevCount) => prevCount + 1)
             context.state.players[oponentKey].hits += 1;
           } else {
-            const newColor = player.id === 1 ? context.state.players.player1.magic.color : context.state.players.player2.magic.color
-            const newX = player.id === 1 ? activeSpell.x + SPELL_MOVING_SPEED : activeSpell.x - SPELL_MOVING_SPEED;
+            const newColor = player.id === 1 ?
+              context.state.players.player1.magic.color :
+              context.state.players.player2.magic.color
+            const newX = player.id === 1 ?
+              activeSpell.x + SPELL_MOVING_SPEED :
+              activeSpell.x - SPELL_MOVING_SPEED;
             acc.push({ ...activeSpell, x: newX });
             drawSpell(activeSpell, newColor);
           }
@@ -227,14 +231,12 @@ const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
   }, []);
 
   return (
-    <div>
-      <canvas
-        id='canvas'
-        ref={canvasRef}
-        width={CANVAS_STYLE.width}
-        height={CANVAS_STYLE.height}
-      />
-    </div>
+    <canvas
+      id='canvas'
+      ref={canvasRef}
+      width={CANVAS_STYLE.width}
+      height={CANVAS_STYLE.height}
+    />
   )
 }
 
