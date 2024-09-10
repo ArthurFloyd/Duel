@@ -1,10 +1,14 @@
 import React, { useRef, useState } from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
 
 import Canvas from './Canvas';
-import './App.css'
+import './App.css';
 import PlayersControls from './PlayersControls';
-import { DEFAULT_PLAYER_COLOR } from './Canvas'
+import { DEFAULT_SPALL_COLOR } from './Canvas';
+import en from './locales/en';
 
 const App = () => {
   const [isPortalVisible, setIsPortalVisible] = useState(false)
@@ -14,12 +18,25 @@ const App = () => {
   const [damageCounterPlayer1, setDamageCounterPlayer1] = useState(0);
   const [damageCounterPlayer2, setDamageCounterPlayer2] = useState(0);
 
-  const [colorSpellPlayer1, setColorSpellPlayer1] = useState(DEFAULT_PLAYER_COLOR);
-  const [colorSpellPlayer2, setColorSpellPlayer2] = useState(DEFAULT_PLAYER_COLOR);
+  const [colorSpellPlayer1, setColorSpellPlayer1] = useState(DEFAULT_SPALL_COLOR);
+  const [colorSpellPlayer2, setColorSpellPlayer2] = useState(DEFAULT_SPALL_COLOR);
 
   const inputRef = useRef(null);
+  const i18n = i18next.createInstance();
 
-  const renderPortal = () => {
+  i18n
+    .use(initReactI18next)
+    .init({
+      lng: 'en',
+      debug: false,
+      resources: {
+        en,
+      },
+    });
+
+  const { t } = useTranslation();
+
+  const renderColorMenu = () => {
     const portalContainer = document.getElementById('portal');
     if (!(portalContainer && isPortalVisible)) {
       return null;
@@ -64,8 +81,7 @@ const App = () => {
           />
           <div className="circle"></div>
         </label>
-        <p>change the color
-          of your spells</p>
+        <p>{t('interface.colorSpellsChangeMenu.messageInsideTheMenu')}</p>
         <label className='container'>
           <input id="2"
             name="player2"
@@ -83,20 +99,27 @@ const App = () => {
 
   return (
     <>
-      <div>
-        <button text={`${damageCounterPlayer1}/${damageCounterPlayer2}`} hover-text='color spells' className="btn" onClick={(event) => {
-          setPortalPosition({ top: event.target.getBoundingClientRect().top + 25, left: event.target.getBoundingClientRect().left + 50 });
-          setIsPortalVisible(previousValue => {
-            return !previousValue;
-          });
-        }}></button>
-        <Canvas
-          setDamageCounterPlayer1={setDamageCounterPlayer1}
-          setDamageCounterPlayer2={setDamageCounterPlayer2}
-        />
-        <PlayersControls />
-      </div>
-      {renderPortal()}
+      <I18nextProvider i18n={i18n}>
+        <div>
+          <button text={`${damageCounterPlayer1}/${damageCounterPlayer2}`}
+            hover-text={t('interface.colorSpellsChangeMenu.messageOutsideTheMenu')}
+            className="btn"
+            onClick={(event) => {
+              setPortalPosition({
+                top: event.target.getBoundingClientRect().top + 25, left: event.target.getBoundingClientRect().left + 50
+              });
+              setIsPortalVisible(previousValue => {
+                return !previousValue;
+              });
+            }}></button>
+          <Canvas
+            setDamageCounterPlayer1={setDamageCounterPlayer1}
+            setDamageCounterPlayer2={setDamageCounterPlayer2}
+          />
+          <PlayersControls />
+        </div>
+        {renderColorMenu()}
+      </I18nextProvider>
     </>
   )
 };

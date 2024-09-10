@@ -1,14 +1,16 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 
 const CANVAS_STYLE = {
   width: 800, height: 500, display: "block", marginLeft: "auto",
-  margin: "100%"
+  margin: "100%",
 };
 
 const PLAYER_SIDE_GAP = 30;
 const DEFAULT_PLAYER_HITS = 0;
 
 export const DEFAULT_PLAYER_COLOR = '#434343';
+export const DEFAULT_SPALL_COLOR = '#d0d5ce';
 export const PLAYER_MOVING_SPEED = 1.5;
 export const SPELL_MOVING_SPEED = 3.5;
 export const DEFAULT_SPELL_CASTING_RATE = 5000;
@@ -17,7 +19,7 @@ const DEFAULT_SPELL = {
   castingRate: DEFAULT_SPELL_CASTING_RATE,
   lastCastedAt: Date.now(),
   activeSpells: [],
-  color: '#d0d5ce',
+  color: DEFAULT_SPALL_COLOR,
 };
 
 const DEFAULT_PLAYER = {
@@ -25,7 +27,6 @@ const DEFAULT_PLAYER = {
 
   // style
   radius: 20,
-  color: '#0095DD',
 
   // position
   x: 0,
@@ -35,6 +36,7 @@ const DEFAULT_PLAYER = {
 
 const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
   const canvasRef = useRef(null);
+  const { t } = useTranslation();
 
   const initGame = () => {
     const canvas = canvasRef.current;
@@ -187,7 +189,7 @@ const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
             oponentKey === 'player1' ?
               setDamageCounterPlayer1((prevCount) => prevCount + 1) :
               setDamageCounterPlayer2((prevCount) => prevCount + 1)
-            context.state.players[oponentKey].hits += 1
+            context.state.players[oponentKey].hits += 1;
           } else {
             const newColor = player.id === 1 ? context.state.players.player1.magic.color : context.state.players.player2.magic.color
             const newX = player.id === 1 ? activeSpell.x + SPELL_MOVING_SPEED : activeSpell.x - SPELL_MOVING_SPEED;
@@ -206,11 +208,11 @@ const Canvas = ({ setDamageCounterPlayer1, setDamageCounterPlayer2 }) => {
       moveSpells(player2);
 
       if (context.state.players.player1.hits >= 3) {
-        alert(`Winner Player 2`)
+        alert(t('messagesForGameOver.winnerPlayer2'));
       } else if (context.state.players.player2.hits >= 3) {
-        alert(`Winner Player 1`)
+        alert(t('messagesForGameOver.winnerPlayer1'));
       } else if (context.state.players.player1.hits >= 3 || context.state.players.player2.hits >= 3) {
-        alert(`Congratulations! you have a draw :)`)
+        alert(t('messagesForGameOver.gameDraw'));
       } else {
         requestAnimationFrame(draw);
       }

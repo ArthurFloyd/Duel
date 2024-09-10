@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 import './styles.css';
 import { DEFAULT_SPELL_CASTING_RATE, PLAYER_MOVING_SPEED } from '../Canvas';
@@ -9,6 +11,8 @@ const PlayersControls = () => {
 
   const [castingRateModifier1, setCastingRateModifier1] = useState(5);
   const [castingRateModifier2, setCastingRateModifier2] = useState(5);
+
+  const { t } = useTranslation();
 
   const renderPlayerControl = (playerId) => {
     const handleMovingSpeedChange = (event) => {
@@ -55,7 +59,7 @@ const PlayersControls = () => {
     return (
       <div className='slider'>
         <span>
-          player {playerId}
+          {t(`interface.players.player${playerId}`)}
         </span>
         <div>
           <input
@@ -67,7 +71,7 @@ const PlayersControls = () => {
             value={playerId === 1 ? movingSpeedModifier1 : movingSpeedModifier2}
             onChange={handleMovingSpeedChange}
           />
-          <label htmlFor="moving-speed">move</label>
+          <label htmlFor="moving-speed">{t('interface.playersControls.movingSpeed')}</label>
         </div>
         <div>
           <input
@@ -79,7 +83,7 @@ const PlayersControls = () => {
             value={playerId === 1 ? castingRateModifier1 : castingRateModifier2}
             onChange={handleCastingRateChange}
           />
-          <label htmlFor="casting-speed">cast</label>
+          <label htmlFor="casting-speed">{t('interface.playersControls.castingRate')}</label>
         </div>
       </div>
     );
